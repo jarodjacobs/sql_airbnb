@@ -1,0 +1,28 @@
+
+    What's the most expensive listing? What else can you tell me about the listing?
+
+SELECT *
+FROM listings
+ORDER BY price DESC
+LIMIT 1;
+
+    What neighborhoods seem to be the most popular?
+
+SELECT neighbourhood, AVG(reviews_per_month)
+FROM listings
+GROUP BY neighbourhood
+ORDER By AVG(reviews_per_month) DESC;
+
+    What time of year is the cheapest time to go to your city? What about the busiest?
+
+SELECT DATE_FORMAT(date,"%Y-%m"), AVG(price) 
+FROM calendar 
+WHERE price IS NOT NULL 
+GROUP BY DATE_FORMAT(date,"%Y"), DATE_FORMAT(date,"%Y-%m")
+ORDER BY AVG(price);
+
+SELECT DATE_FORMAT(date,"%Y-%m"), count(available) 
+FROM calendar 
+WHERE price IS NOT NULL 
+GROUP BY DATE_FORMAT(date,"%Y"), DATE_FORMAT(date,"%Y-%m")
+ORDER BY count(available) DESC;
